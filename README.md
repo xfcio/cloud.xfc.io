@@ -87,3 +87,12 @@ ssh-add ~/id_rsa
 wget https://raw.githubusercontent.com/debianmaster/talks/master/openshift-ha-installation/inventory.yaml
 ansible-playbook -i inventory.yaml  /usr/share/ansible/openshift-ansible/playbooks/byo/config.yml
 ```
+
+
+
+### Extras
+```sh
+gcloud compute disks create master-1-disk --zone asia-east1-a --type pd-ssd  --size 50GB
+gcloud compute instances attach-disk master1 --disk  master-1-disk
+
+```
