@@ -85,13 +85,14 @@ ssh-agent $SHELL
 ssh-add ~/id_rsa
 #Create inventory file   
 wget https://raw.githubusercontent.com/debianmaster/talks/master/openshift-ha-installation/inventory.yaml
+# Create a tcp loadbalancer for masters and update in inventory.yml  (say 35.187.153.182)
+
 ansible-playbook -i inventory.yaml  /usr/share/ansible/openshift-ansible/playbooks/byo/config.yml
 ansible all -m shell -a "sudo cp /etc/origin/master/master-config.yaml /etc/origin/master/master-config.yaml.bak" -i cloud.xfc.io/inventory.yaml
 ansible all -m shell -a "sudo sed -i s/35.187.153.182/cloud.xfc.io/g /etc/origin/master/master-config.yaml" -i cloud.xfc.io/inventory.yaml
 ansible all -m shell -a "sudo systemctl restart origin-master-api" -i cloud.xfc.io/inventory.yaml
 ansible all -m shell -a "sudo systemctl restart origin-master-controllers" -i cloud.xfc.io/inventory.yaml
 ```
-where 35.187.153.182  is a tcp loadbalancer
 
 
 ### Extras
