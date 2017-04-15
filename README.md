@@ -93,6 +93,10 @@ ansible all -m shell -a "sudo sed -i s/35.187.153.182/cloud.xfc.io/g /etc/origin
 ansible all -m shell -a "sudo sed -i s/oldsecret/newsecret/g /etc/origin/master/master-config.yaml" -i cloud.xfc.io/inventory.yaml
 ansible all -m shell -a "sudo systemctl restart origin-master-api" -i cloud.xfc.io/inventory.yaml
 ansible all -m shell -a "sudo systemctl restart origin-master-controllers" -i cloud.xfc.io/inventory.yaml
+
+##Caution
+ansible all -m shell -a "sudo wipefs -a /dev/sdb" -i ~/cloud.xfc.io/inventory.yaml
+./gk-deploy -g -c oc -t ./ocp-templates topology.json --load
 ```
 
 
