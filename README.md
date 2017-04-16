@@ -105,4 +105,12 @@ ansible all -m shell -a "sudo wipefs -a /dev/sdb" -i ~/cloud.xfc.io/inventory.ya
 gcloud compute disks create master-1-disk --zone asia-east1-a --type pd-ssd  --size 50GB
 gcloud compute instances attach-disk master1 --disk  master-1-disk
 
+gcloud compute instances detach-disk master1 --disk  master-1-disk
+gcloud compute instances detach-disk master2 --disk  master-2-disk
+gcloud compute instances detach-disk master3 --disk  master-3-disk
+
+gcloud compute instances detach-disk node1 --disk  node-1-disk
+gcloud compute instances detach-disk infra1 --disk  infra-1-disk
+gcloud compute instances detach-disk infra2 --disk  infra-2-disk
+
 ```
