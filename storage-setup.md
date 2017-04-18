@@ -29,3 +29,11 @@ gcloud compute instances detach-disk g1 --disk  g1-disk
 gcloud compute instances detach-disk g2 --disk  g2-disk
 gcloud compute instances detach-disk g3 --disk  g3-disk
 gcloud compute  disks delete g1-disk g2-disk g3-disk
+
+### on all g1,g2,g3
+sudo yum install -y centos-release-gluster310.noarch
+sudo yum install -y glusterfs gluster-cli glusterfs-libs glusterfs-server
+sudo systemctl enable glusterd --now
+
+#on g1
+sudo yum install heketi heketi-client 
