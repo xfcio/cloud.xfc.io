@@ -123,3 +123,8 @@ gcloud compute instances detach-disk infra2 --disk  infra-2-disk
 gcloud compute  disks delete master-1-disk master-2-disk  master-3-disk node-1-disk infra-1-disk infra-2-disk
 
 ```
+
+### Cleanup 
+```
+gcloud compute firewall-rules delete $(gcloud compute firewall-rules list --filter "network=openshift" | awk '{print $1}')
+```
