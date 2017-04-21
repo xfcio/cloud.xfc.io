@@ -127,5 +127,7 @@ gcloud compute  disks delete master-1-disk master-2-disk  master-3-disk node-1-d
 ### Cleanup 
 ```
 gcloud compute firewall-rules delete $(gcloud compute firewall-rules list --filter "network=openshift" | awk '{print $1}')
+gcloud compute forwarding-rules delete xfc-masters-ig --region asia-east1
 gcloud compute networks delete openshift
+
 ```
