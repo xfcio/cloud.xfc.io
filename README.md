@@ -125,6 +125,7 @@ cd ~
 export ANSIBLE_HOST_KEY_CHECKING=False
 ansible-playbook -i inventory.current.yaml openshift-ansible/playbooks/byo/config.yml
 sudo yum install -y heketi-client
+#pod join network? 
 ansible all -m shell -a "sudo iptables -I INPUT -p all -j ACCEPT" -i inventory.current.yaml
 ./gk-deploy -g -t ./ocp-templates -n cns -c oc --admin-key Gtfer452 --user-key g6r6na --load -v topology.json
 
