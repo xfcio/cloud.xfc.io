@@ -92,7 +92,7 @@ gcloud compute target-pools add-instances openshift-api-target-pool \
 
 
 OPENSHIFT_PUBLIC_ADDRESS=$(gcloud compute addresses describe openshift-ip \
-  --region asia-east1-a \
+  --region asia-east1 \
   --format 'value(address)') 
 
 gcloud compute forwarding-rules create kubernetes-forwarding-rule \
