@@ -128,9 +128,21 @@ sudo yum install -y heketi-client
 #pod join network? 
 ansible all -m shell -a "sudo iptables -I INPUT -p all -j ACCEPT" -i inventory.current.yaml
 ./gk-deploy -g -t ./ocp-templates -n cns -c oc --admin-key Gtfer452 --user-key g6r6na --load -v topology.json
-
 ```
 
+`oc create -f storageclass.yaml -n deffault` 
+
+```yaml
+apiVersion: storage.k8s.io/v1beta1
+kind: StorageClass
+metadata:
+  name: default
+provisioner: kubernetes.io/glusterfs
+parameters:
+  resturl: "http://heketi-cns.router.default.svc.cluster.local"
+  restuser: "admin"
+  restuserkey: "adminpass"
+```
 
 
 >  Extras 1
