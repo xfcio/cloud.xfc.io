@@ -31,7 +31,7 @@ gcloud compute firewall-rules create allow-healthz \
   --source-ranges 130.211.0.0/22 
   
 
-gcloud compute firewall-rules create allow-http-https   --allow tcp:8080,tcp:443,tcp:80   --network openshift   --source-ranges 0.0.0.0/0
+gcloud compute firewall-rules create allow-http-https   --allow tcp:8080,tcp:8443,tcp:443,tcp:80   --network openshift   --source-ranges 0.0.0.0/0
 
 gcloud compute firewall-rules list --filter "network=openshift"
 
@@ -72,6 +72,35 @@ gcloud compute instances create "node1" --zone "asia-east1-a" --machine-type n1-
   --image "centos-7-v20170223" --image-project "centos-cloud" --boot-disk-size "20" \
   --boot-disk-type "pd-ssd" --boot-disk-device-name "node1"  \
   --private-network-ip 10.240.0.75  --subnet openshift-subnet  
+
+
+gcloud compute addresses create openshift-ip --region=asia-east1-a
+
+
+gcloud compute http-health-checks create openshift-api-health-check \
+  --description "Openshift API Server Health Check" \
+  --port 8443 \
+  --request-path /healthz
+
+
+gcloud compute target-pools create openshift-api-target-pool \
+  --http-health-check=openshift-api-health-check
+
+
+gcloud compute target-pools add-instances openshift-api-target-pool \
+  --instances master1,master2,master3   
+
+
+OPENSHIFT_PUBLIC_ADDRESS=$(gcloud compute addresses describe openshift-ip \
+  --region asia-east1-a \
+  --format 'value(address)') 
+
+gcloud compute forwarding-rules create kubernetes-forwarding-rule \
+  --address ${OPENSHIFT_PUBLIC_ADDRESS} \
+  --ports 8443 \
+  --target-pool openshift-api-target-pool \
+  --region asia-east1-a 
+  
 
 
 > Copy cat ~/.ssh/id_rsa.pub   to metadata
