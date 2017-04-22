@@ -26,6 +26,7 @@ openshift_release=v1.5.0
 openshift_hosted_metrics_deploy=false
 openshift_hosted_logging_deployer_version=3.5.0
 openshift_hosted_metrics_deploy=false
+openshift_hosted_logging_deploy=false
 #openshift_master_overwrite_named_certificates=true
 #openshift_master_named_certificates=[{"certfile": "/home/cjonagam/vault/certs/cloud.xfc.io/fullchain1.pem", "keyfile": "/home/cjonagam/vault/certs/cloud.xfc.io/privkey1.pem", "names":["cloud.xfc.io"]}]
 
