@@ -15,8 +15,8 @@ openshift_master_cluster_public_hostname=OPENSHIFT_IP
 deployment_type=origin
 enable_excluders=false
 os_sdn_network_plugin_name='redhat/openshift-ovs-multitenant'
-#openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/htpasswd'}]
-openshift_master_identity_providers=[{"name": "my_openid_connect", "login": "true", "challenge": "false", "kind": "OpenIDIdentityProvider", "client_id": "xfc", "client_secret": "dea4acff-0949-476c-be36-f7577b922d43", "claims": {"id": ["sub"], "preferredUsername": ["preferred_username"], "name": ["name"], "email": ["email"]}, "urls": {"authorize": "https://auth.xfc.io/auth/realms/xfc/protocol/openid-connect/auth", "token": "https://auth.xfc.io/auth/realms/xfc/protocol/openid-connect/token"}}]
+openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/htpasswd'}]
+#openshift_master_identity_providers=[{"name": "my_openid_connect", "login": "true", "challenge": "false", "kind": "OpenIDIdentityProvider", "client_id": "xfc", "client_secret": "dea4acff-0949-476c-be36-f7577b922d43", "claims": {"id": ["sub"], "preferredUsername": ["preferred_username"], "name": ["name"], "email": ["email"]}, "urls": {"authorize": "https://auth.xfc.io/auth/realms/xfc/protocol/openid-connect/auth", "token": "https://auth.xfc.io/auth/realms/xfc/protocol/openid-connect/token"}}]
 openshift_docker_options='--selinux-enabled --insecure-registry 172.30.0.0/16'
 openshift_router_selector='region=infra'
 openshift_registry_selector='region=infra'
