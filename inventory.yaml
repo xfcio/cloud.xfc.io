@@ -30,6 +30,14 @@ openshift_hosted_logging_deploy=false
 #openshift_master_overwrite_named_certificates=true
 #openshift_master_named_certificates=[{"certfile": "/home/cjonagam/vault/certs/cloud.xfc.io/fullchain1.pem", "keyfile": "/home/cjonagam/vault/certs/cloud.xfc.io/privkey1.pem", "names":["cloud.xfc.io"]}]
 
+openshift_hosted_registry_storage_kind=nfs
+openshift_hosted_registry_storage_access_modes=['ReadWriteMany']
+openshift_hosted_registry_storage_nfs_directory=/exports
+openshift_hosted_registry_storage_nfs_options='*(rw,root_squash)'
+openshift_hosted_registry_storage_volume_name=registry
+openshift_hosted_registry_storage_volume_size=10Gi
+
+
 [nodes]
 master1  containerized=True openshift_schedulable=True ansible_connection=local ansible_become=yes
 master2  containerized=True openshift_schedulable=True
