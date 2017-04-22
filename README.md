@@ -125,6 +125,9 @@ cd ~
 export ANSIBLE_HOST_KEY_CHECKING=False
 ansible-playbook -i inventory.current.yaml openshift-ansible/playbooks/byo/config.yml
 sudo yum install -y heketi-client
+ansible all -m shell -a "sudo iptables -I INPUT -p all -j ACCEPT" -i inventory.current.yaml
+./gk-deploy -g -t ./ocp-templates -n cns -c oc --admin-key Gtfer452 --user-key g6r6na --load -v topology.json
+
 ```
 
 
@@ -139,7 +142,8 @@ ansible all -m shell -a "sudo systemctl restart origin-master-controllers" -i cl
 
 ##Caution
 ansible all -m shell -a "sudo wipefs -a /dev/sdb" -i ~/cloud.xfc.io/inventory.yaml
-./gk-deploy -g -c oc -t ./ocp-templates topology.json --load
+
+./gk-deploy -g -t ./ocp-templates -n cns -c oc --admin-key Gtfer452 --user-key g6r6na --load -v topology.json
 ```
 
 
