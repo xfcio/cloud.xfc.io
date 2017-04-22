@@ -101,42 +101,35 @@ gcloud compute forwarding-rules create kubernetes-forwarding-rule \
   --target-pool openshift-api-target-pool \
   --region asia-east1
   
-ip address not available in master1
+echo $OPENSHIFT_PUBLIC_ADDRESS > OPENSHIFT_PUBLIC_ADDRESS
 
-yum install -y wget git ansible pyOpenSSL python-cryptography python-lxml
+gcloud compute copy-files ~/.ssh/id_rsa master1:~/
+gcloud compute copy-files OPENSHIFT_PUBLIC_ADDRESS master1:~/
 
-sed -e s/OPENSHIFT_IP/${OPENSHIFT_PUBLIC_ADDRESS}/g inventory.yaml
+gcloud compute ssh master1
+ssh-agent $SHELL
+ssh-add ~/id_rsa
+export OPENSHIFT_PUBLIC_ADDRESS=$(cat OPENSHIFT_PUBLIC_ADDRESS)
 
+sudo yum install -y wget git ansible pyOpenSSL python-cryptography python-lxml
 
+wget https://raw.githubusercontent.com/xfcio/cloud.xfc.io/master/inventory.yaml 
 
+sed -e s/OPENSHIFT_IP/${OPENSHIFT_PUBLIC_ADDRESS}/g inventory.yaml > inventory.current.yaml
 
 
 git clone https://github.com/openshift/openshift-ansible
-
 cd openshift-ansible/
-
 git checkout release-1.5
 cd ~
-ansible-playbook -i inventory.yaml openshift-ansible/playbooks/byo/config.yml
-
 export ANSIBLE_HOST_KEY_CHECKING=False
+ansible-playbook -i inventory.current.yaml openshift-ansible/playbooks/byo/config.yml
+```sh
 
 
 
-> Copy cat ~/.ssh/id_rsa.pub   to metadata
-gcloud compute copy-files ~/.ssh/id_rsa master1:~/
-gcloud compute ssh master1
-sudo yum install -y centos-release-openshift-origin
-sudo yum install -y origin-clients
-sudo yum install -y origin
-sudo yum --enablerepo=centos-openshift-origin-testing install atomic-openshift-utils 
-ssh-agent $SHELL
-ssh-add ~/id_rsa
-#Create inventory file   
-wget https://raw.githubusercontent.com/debianmaster/talks/master/openshift-ha-installation/inventory.yaml
-# Create a tcp loadbalancer for masters and update in inventory.yml  (say 35.187.153.182)
-
-ansible-playbook -i inventory.yaml  /usr/share/ansible/openshift-ansible/playbooks/byo/config.yml
+>  Extras 1
+```sh
 ansible all -m shell -a "sudo cp /etc/origin/master/master-config.yaml /etc/origin/master/master-config.yaml.bak" -i cloud.xfc.io/inventory.yaml
 ansible all -m shell -a "sudo sed -i s/35.187.153.182/cloud.xfc.io/g /etc/origin/master/master-config.yaml" -i cloud.xfc.io/inventory.yaml
 ansible all -m shell -a "sudo sed -i s/oldsecret/newsecret/g /etc/origin/master/master-config.yaml" -i cloud.xfc.io/inventory.yaml
