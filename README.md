@@ -101,6 +101,26 @@ gcloud compute forwarding-rules create kubernetes-forwarding-rule \
   --target-pool openshift-api-target-pool \
   --region asia-east1
   
+ip address not available in master1
+
+yum install -y wget git ansible pyOpenSSL python-cryptography python-lxml
+
+sed -e s/OPENSHIFT_IP/${OPENSHIFT_PUBLIC_ADDRESS}/g inventory.yaml
+
+
+
+
+
+git clone https://github.com/openshift/openshift-ansible
+
+cd openshift-ansible/
+
+git checkout release-1.5
+cd ~
+ansible-playbook -i inventory.yaml openshift-ansible/playbooks/byo/config.yml
+
+export ANSIBLE_HOST_KEY_CHECKING=False
+
 
 
 > Copy cat ~/.ssh/id_rsa.pub   to metadata
