@@ -7,7 +7,7 @@ etcd
 
 [OSEv3:vars]
 #openshift_master_default_subdomain=apps.xfc.io
-ansible_ssh_user=cjonagam
+ansible_ssh_user=INSTALL_USER
 ansible_become=yes
 openshift_master_cluster_method=native
 openshift_master_cluster_hostname=OPENSHIFT_IP
