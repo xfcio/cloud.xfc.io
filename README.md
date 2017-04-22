@@ -74,7 +74,7 @@ gcloud compute instances create "node1" --zone "asia-east1-a" --machine-type n1-
   --private-network-ip 10.240.0.75  --subnet openshift-subnet  
 
 
-gcloud compute addresses create openshift-ip --region=asia-east1-a
+gcloud compute addresses create openshift-ip --region=asia-east1
 
 
 gcloud compute http-health-checks create openshift-api-health-check \
