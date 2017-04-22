@@ -144,7 +144,7 @@ ansible all -m shell -a "sudo systemctl restart origin-master-controllers" -i cl
 ##Caution
 ansible all -m shell -a "sudo wipefs -a /dev/sdb" -i ~/cloud.xfc.io/inventory.yaml
 
-./gk-deploy -g -t ./ocp-templates -n cns -c oc --admin-key Gtfer452 --user-key g6r6na --load -v topology.json
+./gk-deploy -g -t ./ocp-templates -n cns -c oc --admin-key adminpass --user-key userpass --load -v topology.json
 ```
 
 
