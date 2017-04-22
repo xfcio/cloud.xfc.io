@@ -99,7 +99,7 @@ gcloud compute forwarding-rules create kubernetes-forwarding-rule \
   --address ${OPENSHIFT_PUBLIC_ADDRESS} \
   --ports 8443 \
   --target-pool openshift-api-target-pool \
-  --region asia-east1-a 
+  --region asia-east1
   
 
 
