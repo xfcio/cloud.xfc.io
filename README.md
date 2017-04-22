@@ -124,7 +124,7 @@ git checkout release-1.5
 cd ~
 export ANSIBLE_HOST_KEY_CHECKING=False
 ansible-playbook -i inventory.current.yaml openshift-ansible/playbooks/byo/config.yml
-```sh
+```
 
 
 
