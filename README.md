@@ -130,7 +130,8 @@ ansible all -m shell -a "sudo iptables -I INPUT -p all -j ACCEPT" -i inventory.c
 oc new-project cns
 oc adm policy add-scc-to-user privileged -z router -n cns
 oc adm policy add-scc-to-user router -z defaul -n cns
-./gk-deploy -g -t ./ocp-templates -n cns -c oc --admin-key adminpass --user-key userpass --load -v topology.json
+./gk-deploy -g -t ./ocp-templates -n cns -c oc --admin-key adminpass --user-key userpass  -v topology.json
+>  --load if restarting
 ```
 
 `oc create -f storageclass.yaml -n deffault` 
