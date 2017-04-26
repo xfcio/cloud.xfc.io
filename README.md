@@ -160,6 +160,7 @@ ansible all -m shell -a "sudo systemctl restart origin-master-controllers" -i cl
 ##Caution
 ansible all -m shell -a "sudo wipefs -a /dev/sdb" -i ~/cloud.xfc.io/inventory.yaml
 
+sudo setsebool -P virt_sandbox_use_fusefs on
 ./gk-deploy -g -t ./ocp-templates -n cns -c oc --admin-key adminpass --user-key userpass --load -v topology.json
 ```
 
