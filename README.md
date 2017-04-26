@@ -189,6 +189,8 @@ gcloud compute  disks delete master-1-disk master-2-disk  master-3-disk node-1-d
 gcloud compute firewall-rules delete $(gcloud compute firewall-rules list --filter "network=openshift" | awk '{print $1}')
 gcloud compute forwarding-rules delete xfc-masters-ig --region asia-east1
 gcloud compute networks delete openshift
-sudo mv /var/log/glusterfs/snaps/heketidbstorage /var/log/glusterfs/snaps/heketidbstorage2
-sudo mv /var/lib/glusterd/vols/heketidbstorage /var/lib/glusterd/vols/heketidbstorage2
+ansible all -m shell -a "sudo wipefs -a /dev/sdb" -i ~/inventory.current.yaml
+ansible all -m shell -a "sudo rm -rf /var/log/glusterfs/snaps/heketidbstorage" -i ~/inventory.current.yaml
+ansible all -m shell -a "sudo rm -rf /var/lib/glusterd/vols/heketidbstorage" -i ~/inventory.current.yaml
+ansible all -m shell -a "sudo iptables -I INPUT -p all -j ACCEPT" -i ~/inventory.current.yaml
 ```
